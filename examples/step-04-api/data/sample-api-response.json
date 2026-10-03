@@ -1,0 +1,42 @@
+{
+  "response": {
+    "header": {
+      "resultCode": "00",
+      "resultMsg": "NORMAL_CODE"
+    },
+    "body": {
+      "pageNo": 0,
+      "numOfRows": 500,
+      "totalCount": 3,
+      "items": [
+        {
+          "lbrryNm": "도서관 A",
+          "ctprvnNm": "대구광역시",
+          "signguNm": "수성구",
+          "lbrrySe": "공공도서관",
+          "rdnmadr": "가상 주소 A",
+          "phoneNumber": "가상 전화 A",
+          "referenceDate": ""
+        },
+        {
+          "lbrryNm": "도서관 B",
+          "ctprvnNm": "대구광역시",
+          "signguNm": "수성구",
+          "lbrrySe": "작은도서관",
+          "rdnmadr": "",
+          "phoneNumber": "가상 전화 B",
+          "referenceDate": ""
+        },
+        {
+          "lbrryNm": "도서관 C",
+          "ctprvnNm": "대구광역시",
+          "signguNm": "중구",
+          "lbrrySe": "공공도서관",
+          "rdnmadr": "가상 주소 C",
+          "phoneNumber": "",
+          "referenceDate": ""
+        }
+      ]
+    }
+  }
+}

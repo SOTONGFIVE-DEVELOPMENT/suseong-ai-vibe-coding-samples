@@ -1,0 +1,87 @@
+{
+  "schemaVersion": 1,
+  "repository": "SOTONGFIVE-DEVELOPMENT/suseong-ai-vibe-coding-samples",
+  "updatedAt": "2026-10-04",
+  "stages": [
+    {
+      "id": "step-00",
+      "title": "시작 프로젝트",
+      "folder": "examples/step-00-start",
+      "zip": "step-00-start.zip",
+      "slide": "d2-01-03",
+      "timeMinutes": 15,
+      "success": [
+        "npm ci 완료",
+        "http://127.0.0.1:3000 시작 안내 표시"
+      ]
+    },
+    {
+      "id": "step-01",
+      "title": "제목과 빈 표",
+      "folder": "examples/step-01-screen",
+      "zip": "step-01-screen.zip",
+      "slide": "d2-03-03",
+      "timeMinutes": 35,
+      "success": [
+        "공공도서관 정보 조회 제목 표시",
+        "도서관명·지역·유형·주소·데이터 기준일 열 표시",
+        "아직 데이터가 없다는 안내"
+      ]
+    },
+    {
+      "id": "step-02",
+      "title": "JSON 파일과 목록",
+      "folder": "examples/step-02-records",
+      "zip": "step-02-records.zip",
+      "slide": "d2-05-02",
+      "timeMinutes": 35,
+      "success": [
+        "도서관 A·B·C 총 3건",
+        "수성구 2건·중구 1건",
+        "파일에서 A 이름 변경 후 새로고침 반영"
+      ]
+    },
+    {
+      "id": "step-03",
+      "title": "이름 검색",
+      "folder": "examples/step-03-search",
+      "zip": "step-03-search.zip",
+      "slide": "search-basic-request",
+      "timeMinutes": 15,
+      "success": [
+        "처음 3건",
+        "도서관 B 검색 1건",
+        "없는도서관 검색 0건",
+        "초기화 후 3건"
+      ]
+    },
+    {
+      "id": "step-04",
+      "title": "API 연결과 저장",
+      "folder": "examples/step-04-api",
+      "zip": "step-04-api.zip",
+      "slide": "d2-07-03",
+      "timeMinutes": 25,
+      "success": [
+        "가상 API 복사 → 3건 저장",
+        "가상 응답임을 화면에서 구분",
+        "서버 종료·재시작 후 저장 결과 유지",
+        "오류 연습 후 기존 파일 유지"
+      ]
+    },
+    {
+      "id": "step-05",
+      "title": "지역·유형 조건과 응용",
+      "folder": "examples/step-05-change",
+      "zip": "step-05-change.zip",
+      "slide": "one-change-request",
+      "timeMinutes": 30,
+      "success": [
+        "대구 수성구 2건",
+        "대구 수성구 + 작은도서관 1건",
+        "도서관 B의 빈 주소값은 정보 없음",
+        "검색·지역·유형 초기화 후 3건"
+      ]
+    }
+  ]
+}

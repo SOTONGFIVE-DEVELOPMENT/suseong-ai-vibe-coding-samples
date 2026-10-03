@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "dataMode": "sample",
+    "source": "수업용 가상 도서관 자료 · 실제 기관 정보가 아님",
+    "syncedAt": null,
+    "scope": "가상 도서관 3건 (대구 수성구·대구 중구)",
+    "totalCount": 3
+  },
+  "items": [
+    {
+      "id": "library-a",
+      "name": "도서관 A",
+      "region": "대구 수성구",
+      "type": "공공도서관",
+      "address": "가상 주소 A",
+      "phone": "가상 전화 A",
+      "referenceDate": null
+    },
+    {
+      "id": "library-b",
+      "name": "도서관 B",
+      "region": "대구 수성구",
+      "type": "작은도서관",
+      "address": "",
+      "phone": "가상 전화 B",
+      "referenceDate": null
+    },
+    {
+      "id": "library-c",
+      "name": "도서관 C",
+      "region": "대구 중구",
+      "type": "공공도서관",
+      "address": "가상 주소 C",
+      "phone": "",
+      "referenceDate": null
+    }
+  ]
+}

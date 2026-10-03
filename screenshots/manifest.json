@@ -1,0 +1,138 @@
+{
+  "capturedAt": "2026-10-04",
+  "platform": "Codex CLI 0.159.2 실제 작업 로그 · 브라우저 표시",
+  "items": [
+    {
+      "id": "project",
+      "file": "01-codex-project.jpg",
+      "title": "프로젝트와 파일 확인",
+      "caption": "STEP-02 복사본에서 실제 Codex CLI가 파일과 실행 구조를 확인한 기록입니다.",
+      "action": "단계 폴더를 열고 README를 먼저 확인합니다.",
+      "expected": "실행 폴더·화면 파일·자료 파일을 구분합니다.",
+      "stage": "step-02",
+      "platform": "Codex CLI 0.159.2 실제 작업 로그 · 브라우저 표시",
+      "source": "actual-capture",
+      "sha256": "4f928058be03a424d1a17d00ad951c725305c3a4ab22abcb1de90aa4044f70c3"
+    },
+    {
+      "id": "request",
+      "file": "02-codex-request.jpg",
+      "title": "작은 요구사항 요청",
+      "caption": "실제 전달한 이름 검색 요청과 Codex의 진행 답변입니다.",
+      "action": "입력값과 기대 건수를 함께 요청합니다.",
+      "expected": "3건·B 1건·없는 이름 0건·초기화 3건 요구를 확인합니다.",
+      "stage": "step-03",
+      "platform": "Codex CLI 0.159.2 실제 작업 로그 · 브라우저 표시",
+      "source": "actual-capture",
+      "sha256": "bd15c73df8fe4fefb783a8648834dfd1a7a93d3345587834b0646a46f899ced7"
+    },
+    {
+      "id": "change",
+      "file": "03-codex-change.jpg",
+      "title": "생성한 변경 확인",
+      "caption": "실제 화면 코드의 Git diff와 변경 파일 목록입니다.",
+      "action": "어떤 파일이 왜 바뀌었는지 읽습니다.",
+      "expected": "검색 상태·필터 연결과 변경 파일을 확인합니다.",
+      "stage": "step-03",
+      "platform": "Codex CLI 0.159.2 실제 작업 로그 · 브라우저 표시",
+      "source": "actual-capture",
+      "sha256": "5529ab1eeb1ca92ab390b0ffa0f25c7e8910c9c1f16a6734eb9a71b9813fa239"
+    },
+    {
+      "id": "test",
+      "file": "04-codex-test.jpg",
+      "title": "테스트·빌드와 완료 답변",
+      "caption": "실제 npm test 6건 및 npm run build 성공 출력입니다.",
+      "action": "실행한 검증과 아직 실행하지 않은 검증을 구분합니다.",
+      "expected": "종료 코드 0을 확인하고 브라우저 검증을 따로 수행합니다.",
+      "stage": "step-03",
+      "platform": "Codex CLI 0.159.2 실제 작업 로그 · 브라우저 표시",
+      "source": "actual-capture",
+      "sha256": "949121fb96a6839c461e3a349b54dacce1a5e847909823f3f5e06845daea163d"
+    },
+    {
+      "id": "search",
+      "file": "05-app-search.jpg",
+      "title": "Codex 수정 앱: B 검색 1건",
+      "caption": "STEP-02 복사본에 Codex가 검색을 추가한 실제 앱입니다. 앞뒤 공백이 있는 B 검색도 1건입니다.",
+      "action": "도서관 B를 입력합니다. 시연본은 입력 즉시, STEP-03 정상본은 검색 버튼으로 실행합니다.",
+      "expected": "도서관 B 1건 / 전체 3건과 빈 주소의 정보 없음을 확인합니다.",
+      "stage": "step-03",
+      "platform": "Node.js 22.23.3 · Next.js 16.3.8 실제 로컬 앱 · macOS 브라우저",
+      "source": "actual-capture",
+      "sha256": "030ab11109693fda4a9ec5a3d4fd4135d1b700144179b634745d2616e6d44201"
+    },
+    {
+      "id": "empty",
+      "file": "06-app-empty.jpg",
+      "title": "Codex 수정 앱: 0건 안내",
+      "caption": "같은 실제 시연본에서 없는도서관 입력 후 0건 안내를 확인했습니다.",
+      "action": "없는도서관 입력 후 초기화합니다.",
+      "expected": "0건 안내와 초기화 후 전체 3건을 각각 확인합니다.",
+      "stage": "step-03",
+      "platform": "Node.js 22.23.3 · Next.js 16.3.8 실제 로컬 앱 · macOS 브라우저",
+      "source": "actual-capture",
+      "sha256": "c484ef46ee49dd12c0bd1601d6a3ac2ba9d0d5b4988446394a3703dc26aed30b"
+    },
+    {
+      "id": "api-save",
+      "file": "07-app-api-save.jpg",
+      "title": "API 가상 응답 저장",
+      "caption": "STEP-04 실제 실행 화면입니다. 서버가 교육용 응답을 저장했고 가상 출처·저장 시각을 표시했습니다.",
+      "action": "가상 API 복사를 누르고 data/records.json을 확인합니다.",
+      "expected": "3건 저장과 sample 출처, 서버 재시작 후 유지 여부를 확인합니다.",
+      "stage": "step-04",
+      "platform": "Node.js 22.23.3 · Next.js 16.3.8 실제 로컬 앱 · macOS 브라우저",
+      "source": "actual-capture",
+      "sha256": "dafa72515227a81dd3a3fe2a81885a54b4a2c2e8c9ccc92f2668732559cdb26a"
+    },
+    {
+      "id": "api-error",
+      "file": "08-app-api-error.jpg",
+      "title": "실패 후 기존 자료 유지",
+      "caption": "STEP-04에서 가상 시간 초과를 재현한 실제 화면입니다. 형식·인증 오류도 파일 해시 불변을 확인했습니다.",
+      "action": "선택 오류를 재현하고 저장 파일과 기존 표를 비교합니다.",
+      "expected": "실패 안내와 기존 3건 보존을 확인합니다.",
+      "stage": "step-04",
+      "platform": "Node.js 22.23.3 · Next.js 16.3.8 실제 로컬 앱 · macOS 브라우저",
+      "source": "actual-capture",
+      "sha256": "81cee82f39f781e2d469e80506f8e8fdf3f3251d4d6909b0107d3285e5d8f66c"
+    },
+    {
+      "id": "conditions",
+      "file": "09-app-conditions.jpg",
+      "title": "지역·유형 조건 조합",
+      "caption": "STEP-05 실제 실행: 대구 수성구와 작은도서관을 함께 선택해 B 1건을 확인했습니다.",
+      "action": "지역만 검색한 뒤 유형을 추가하고 초기화합니다.",
+      "expected": "지역 2건 → 조합 1건 → 초기화 3건을 확인합니다.",
+      "stage": "step-05",
+      "platform": "Node.js 22.23.3 · Next.js 16.3.8 실제 로컬 앱 · macOS 브라우저",
+      "source": "actual-capture",
+      "sha256": "0a3342332a7ed0bd57f636390d9d35312d90b836fc49014f7f703e3e4f473638"
+    },
+    {
+      "id": "start",
+      "file": "10-app-start.jpg",
+      "title": "시작 프로젝트 실행",
+      "caption": "STEP-00 정상본의 실제 시작 화면입니다.",
+      "action": "npm ci와 npm run dev를 단계 폴더에서 실행합니다.",
+      "expected": "시작 안내가 표시되고 서버를 중지하면 연결이 종료됩니다.",
+      "stage": "step-00",
+      "platform": "Node.js 22.23.3 · Next.js 16.3.8 실제 로컬 앱 · macOS 브라우저",
+      "source": "actual-capture",
+      "sha256": "3e0996a0939b3cd0e8af23c2905221f797ff790c7fa3ad261dc3f0df50d8c07d"
+    },
+    {
+      "id": "screen",
+      "file": "11-app-screen.jpg",
+      "title": "제목과 빈 표 확인",
+      "caption": "STEP-01 정상본을 실제 로컬 서버에서 실행했습니다.",
+      "action": "제목과 다섯 열, 빈 자료 안내를 비교합니다.",
+      "expected": "공공도서관 정보 조회 제목과 빈 표를 확인합니다.",
+      "stage": "step-01",
+      "platform": "Node.js 22.23.3 · Next.js 16.3.8 실제 로컬 앱 · macOS 브라우저",
+      "source": "actual-capture",
+      "sha256": "9d068427829e7e42c5110467e792f965ebe79f124a61adfdfb08d5d721f33bbb"
+    }
+  ]
+}

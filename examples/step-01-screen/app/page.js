@@ -1,0 +1,3 @@
+export default function Home() {
+  return <main className="mx-auto max-w-6xl px-6 py-10"><span className="badge badge-outline">STEP 01 · 화면 정상본</span><h1 className="mt-4 text-3xl font-bold">공공도서관 정보 조회</h1><p className="my-5">지역의 도서관 목록을 찾는 연습입니다. 다음 단계에서 파일의 자료를 연결합니다.</p><section className="card card-border bg-base-100"><div className="card-body"><h2 className="card-title">도서관 목록</h2><div className="overflow-x-auto"><table className="table"><caption className="sr-only">도서관 정보: 아직 연결된 자료 없음</caption><thead><tr><th>도서관명</th><th>지역</th><th>유형</th><th>주소</th><th>데이터 기준일</th></tr></thead><tbody><tr><td colSpan={5} className="py-10 text-center">아직 데이터가 없습니다.</td></tr></tbody></table></div></div></section></main>;
+}
