@@ -32,7 +32,11 @@
 
 루트 `npm run check`로 6단계 manifest·lockfile·독립 실행 파일·MIT 라이선스·기본 가상 3건·B의 빈 주소·127.0.0.1 실행 주소를 확인했습니다. 04/05의 API 명세·가상 응답 사본은 루트 정본과 바이트 단위로 일치합니다. 각 단계 README·PROMPTS·CHECKLIST의 로컬 링크는 모두 해당 단계 폴더 안에서 열립니다.
 
-각 단계 `.gitignore`가 node_modules·.next·.env.local·임시 파일·복구 백업을 제외하며 `.env.example`은 포함하는 것을 확인했습니다. 릴리스 ZIP의 실제 구성과 SHA256은 부모의 패키지 생성 이후 별도로 확인합니다.
+각 단계 `.gitignore`가 node_modules·.next·.env.local·임시 파일·복구 백업을 제외하며 `.env.example`은 포함하는 것을 확인했습니다.
+
+2026-10-04 ZIP 8개를 실제 생성해 각 ZIP의 CRC 무결성·경로·의존성/비밀 파일 제외를 검사했습니다. 모든 단계 ZIP에 잠금 파일과 `.gitignore`가 포함됩니다. STEP-04 ZIP을 새로운 임시 폴더에 풀어 Node22에서 `npm ci`, `npm run check`를 실행했고 9개 테스트와 Next 빌드가 통과했습니다. 공개 다운로드의 파일 크기·SHA-256·원본 Git 커밋은 실습 사이트의 `/downloads/course.json`과 `SHA256SUMS.txt`에 기록합니다.
+
+부모의 실제 브라우저 검증은 [Codex 따라 하기](codex-walkthrough.md)의 출처·스크린샷 11장에 기록했습니다. 최신 조회 응답만 화면을 바꾸는 보강은 별도 검토에서 느린 초기 응답·오래된 오류·effect cleanup 이후 응답 순서를 제어해 재확인했습니다.
 
 ## 미확인 범위
 

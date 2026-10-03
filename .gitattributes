@@ -1,0 +1,2 @@
+# Unified diff context lines containing one space are part of the original evidence.
+docs/codex-run/*.patch whitespace=-blank-at-eol
