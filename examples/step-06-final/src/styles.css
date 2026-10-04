@@ -131,6 +131,8 @@
 .data-details-heading p { font-size: 12px; color: color-mix(in oklab, var(--color-base-content) 62%, transparent); }
 .data-stats { width: 100%; display: grid; grid-auto-flow: row; grid-template-columns: 1.2fr 1fr 1fr; box-shadow: none; border-radius: 0; margin-top: 14px; background: transparent; overflow: visible; }
 .data-stats .stat { padding: 0 20px; min-width: 0; white-space: normal; border-color: var(--color-base-300); }
+.data-stats .stat { grid-template-columns: minmax(0, 1fr); }
+.data-stats .stat > * { min-width: 0; white-space: normal; overflow-wrap: anywhere; }
 .data-stats .stat:first-child { padding-left: 0; }
 .data-stats .stat:last-child { padding-right: 0; }
 .data-stats .stat-title { font-size: 12px; color: color-mix(in oklab, var(--color-base-content) 62%, transparent); }

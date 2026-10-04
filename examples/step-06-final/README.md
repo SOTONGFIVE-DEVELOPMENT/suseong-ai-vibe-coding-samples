@@ -47,7 +47,7 @@ npm run dev
 
 05의 이름 검색 URL은 `q`이고 최종 화면은 **`name`**을 사용합니다. `lib/final-response.mjs`가 `name`을 기존 `filterRecords`의 `query`에 연결합니다. GET 응답은 `count` 대신 **`matchedCount`**와 전체 저장 자료의 **`facets.regions/types`**를 제공합니다. 데이터 구조와 원본 자료는 변경하지 않습니다. 이전 `?q=사월` 주소는 최종 단계에서 `?name=사월`로 바꿉니다.
 
-`public/index.html`과 그림·반응형 스타일 원본은 공개 최종 앱과 같습니다. `public/app.js`도 같은 동작을 사용하되 sample의 시각은 **이 PC 재생·저장**과 **원본 수집**으로 구분해 표시합니다. `public/styles.css`는 실행·빌드 때 `src/styles.css`에서 만들며 수정할 스타일 원본은 `src/styles.css`입니다. 최종 화면에는 관리용 저장 버튼을 추가하지 않고 아래 로컬 명령으로 같은 서버의 저장 API를 검증합니다.
+`public/index.html`과 그림은 공개 최종 앱과 같습니다. 반응형 스타일은 같은 원본을 사용하며 로컬의 긴 자료 출처가 모바일 폭을 넘치지 않도록 줄바꿈만 보강했습니다. `public/app.js`도 같은 동작을 사용하되 sample의 시각은 **이 PC 재생·저장**과 **원본 수집**으로 구분해 표시합니다. `public/styles.css`는 실행·빌드 때 `src/styles.css`에서 만들며 수정할 스타일 원본은 `src/styles.css`입니다. 최종 화면에는 관리용 저장 버튼을 추가하지 않고 아래 로컬 명령으로 같은 서버의 저장 API를 검증합니다.
 
 ## 같은 앱에서 자료 저장과 실패 검증
 
