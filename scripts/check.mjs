@@ -10,7 +10,8 @@ for (const stage of course.stages) {
   if (data.meta.dataMode !== 'sample' || data.items.length !== 3 || data.meta.totalCount !== 3 || data.meta.upstreamTotalCount !== 242 || data.meta.recordedAt !== '2026-10-04T10:17:37Z' || data.meta.syncedAt !== null || !data.items.every(item => item.address && item.phone && item.referenceDate)) throw new Error('실제 저장 예제와 수집 근거를 확인하세요.');
   if (data.items.map(item => item.name).join('|') !== '수성구립용학도서관|수성구립사월책문화센터도서관|2.28민주운동 기념회관') throw new Error('선정한 도서관 이름이 다릅니다.');
   if (data.items.filter(item => item.region === '대구 수성구').length !== 2 || data.items.filter(item => item.name.includes('사월')).length !== 1) throw new Error('3→1→0→3과 지역 조건의 교육 기준을 확인하세요.');
-  if (stage.success.join('|') !== JSON.parse(await readFile(path.join(stage.folder, 'stage.json'))).success.join('|')) throw new Error('성공 기준 사본이 정본과 다릅니다.');
+  const standaloneStage = JSON.parse(await readFile(path.join(stage.folder, 'stage.json')));
+  if (stage.title !== standaloneStage.title || stage.description !== standaloneStage.description || stage.success.join('|') !== standaloneStage.success.join('|')) throw new Error('단계 소개·성공 기준 사본이 정본과 다릅니다.');
   if (Number(stage.id.slice(-2)) >= 2 && !(await readFile(path.join(stage.folder, 'data/records.json'))).equals(await readFile(path.join(stage.folder, 'data/records.seed.json')))) throw new Error('복구 자료가 초기 저장 예제와 다릅니다.');
   const pkg = JSON.parse(await readFile(path.join(stage.folder, 'package.json')));
   if (pkg.scripts.dev !== 'next dev --hostname 127.0.0.1') throw new Error('실행 주소를 확인하세요.');

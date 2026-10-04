@@ -4,7 +4,9 @@ export function dataKind(meta) {
 }
 const at = value => value ? new Date(value).toLocaleString('ko-KR', { timeZone: 'Asia/Seoul' }) + ' (한국 시간)' : null;
 export function describeData(meta) {
+  if (!meta || !['sample', 'live'].includes(meta.dataMode)) return null;
   const kind = dataKind(meta);
+  if (!['recorded', 'synthetic', 'live'].includes(kind) || (kind === 'live') !== (meta.dataMode === 'live')) return null;
   if (kind === 'synthetic') return {
     kind, title: '가상 업무 목록 조회', nameLabel: '자료명', tableLabel: '가상 업무 목록',
     intro: '별도 복사본에서 만든 가상 자료입니다. 실제 기관 정보와 연결되지 않습니다. 이름과 조건을 바꾼 뒤 기대값과 결과를 비교하세요.',

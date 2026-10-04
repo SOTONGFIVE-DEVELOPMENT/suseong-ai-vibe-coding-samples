@@ -75,3 +75,25 @@ test('잘못된 가상 fixture를 거부해 기존 파일을 보존', async () =
     assert.equal(await readFile(file, 'utf8'), recordedText);
   } finally { await rm(folder, { recursive: true, force: true }); }
 });
+
+// 파일 조회 전·조회 실패·잘못된 종류는 자료 출처 설명 자체를 만들지 않습니다.
+// API 영역은 확인된 설명이 있을 때만 표시하므로 가상 파일 편집 오류도
+// 실제 자료 가져오기를 선택할 수 있는 상태로 바뀌지 않습니다.
+test('조회 미확인과 잘못된 자료 종류에는 화면 설명을 만들지 않음', async () => {
+  for (const meta of [null, undefined, {}, { dataMode: 'unknown' },
+    { ...synthetic.meta, dataKind: 'unknown' },
+    { ...synthetic.meta, dataMode: 'live' },
+    { ...recorded.meta, dataKind: 'live' }]) {
+    assert.equal(describeData(meta), null);
+  }
+  assert.equal(describeData(recorded.meta).kind, 'recorded');
+  assert.equal(describeData(synthetic.meta).kind, 'synthetic');
+  const folder = await mkdtemp(path.join(os.tmpdir(), 'suseong-invalid-query-'));
+  try {
+    const file = path.join(folder, 'records.json');
+    const invalid = '{"meta":{"dataKind":"synthetic"},';
+    await writeFile(file, invalid);
+    await assert.rejects(readStore(file), SyntaxError);
+    assert.equal(await readFile(file, 'utf8'), invalid);
+  } finally { await rm(folder, { recursive: true, force: true }); }
+});
