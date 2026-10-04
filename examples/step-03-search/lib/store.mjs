@@ -21,7 +21,13 @@ export function validateStore(value) {
   for (const key of ['source', 'scope']) if (typeof value.meta[key] !== 'string' || value.meta[key].length > 1000) throw new Error('자료 출처와 범위를 확인하세요.');
   if (value.meta.syncedAt !== null && (typeof value.meta.syncedAt !== 'string' || !Number.isFinite(Date.parse(value.meta.syncedAt)))) throw new Error('동기화 일시 형식을 확인하세요.');
   if (!Number.isInteger(value.meta.totalCount) || value.meta.totalCount !== items.length) throw new Error('자료 건수와 실제 목록이 다릅니다.');
-  return { meta: { dataMode: value.meta.dataMode, source: value.meta.source, syncedAt: value.meta.syncedAt, scope: value.meta.scope, totalCount: items.length }, items };
+  const recordedAt = value.meta.recordedAt ?? null;
+  const upstreamTotalCount = value.meta.upstreamTotalCount ?? null;
+  const originalResponseSha256 = value.meta.originalResponseSha256 ?? null;
+  if (recordedAt !== null && (typeof recordedAt !== 'string' || !Number.isFinite(Date.parse(recordedAt)))) throw new Error('원본 수집 일시 형식을 확인하세요.');
+  if (upstreamTotalCount !== null && (!Number.isInteger(upstreamTotalCount) || upstreamTotalCount < items.length)) throw new Error('원본 전체 건수를 확인하세요.');
+  if (originalResponseSha256 !== null && (typeof originalResponseSha256 !== 'string' || !/^[a-f0-9]{64}$/.test(originalResponseSha256))) throw new Error('원본 응답 지문 형식을 확인하세요.');
+  return { meta: { dataMode: value.meta.dataMode, source: value.meta.source, syncedAt: value.meta.syncedAt, scope: value.meta.scope, totalCount: items.length, recordedAt, upstreamTotalCount, originalResponseSha256 }, items };
 }
 export async function readStore(file = DEFAULT_FILE) {
   const raw = await readFile(file, 'utf8');
