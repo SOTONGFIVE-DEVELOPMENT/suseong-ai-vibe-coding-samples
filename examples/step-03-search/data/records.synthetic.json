@@ -1,0 +1,42 @@
+{
+  "meta": {
+    "dataMode": "sample",
+    "dataKind": "synthetic",
+    "source": "직접 만든 가상 연습 자료 (기관 원본 아님)",
+    "scope": "가상 시설 목록 3건 · 실제 기관·인물·주소와 관계없음",
+    "totalCount": 3,
+    "syncedAt": null,
+    "recordedAt": null,
+    "upstreamTotalCount": null,
+    "originalResponseSha256": null
+  },
+  "items": [
+    {
+      "id": "practice-a",
+      "name": "가상 시설 A",
+      "region": "가상 동부",
+      "type": "교육시설",
+      "address": "가상 장소 1",
+      "phone": "",
+      "referenceDate": null
+    },
+    {
+      "id": "practice-b",
+      "name": "가상 시설 B",
+      "region": "가상 동부",
+      "type": "문화시설",
+      "address": "",
+      "phone": "",
+      "referenceDate": null
+    },
+    {
+      "id": "practice-c",
+      "name": "가상 시설 C",
+      "region": "가상 서부",
+      "type": "교육시설",
+      "address": "가상 장소 3",
+      "phone": "",
+      "referenceDate": null
+    }
+  ]
+}

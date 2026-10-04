@@ -38,3 +38,19 @@ for (const folder of ['examples/step-04-api','examples/step-05-change']) {
   if (!fixture.equals(await readFile(path.join(folder, 'data/sample-api-response.json')))) throw new Error('실행 응답 파일이 저장 응답 정본과 다릅니다.');
 }
 console.log('6단계 manifest·독립 실행 파일·실제 저장 자료·수집 근거 계약을 확인했습니다.');
+for (const stage of course.stages.filter(stage => Number(stage.id.slice(-2)) >= 2)) {
+  const folder = stage.folder;
+  for (const file of ['data/records.synthetic.json', 'scripts/prepare-transfer.mjs', 'lib/provenance.mjs', 'app/data-source.js', 'test/transfer.test.mjs']) await access(path.join(folder, file));
+  const { validateStore } = await import(`../${folder}/lib/store.mjs`);
+  const synthetic = validateStore(JSON.parse(await readFile(path.join(folder, 'data/records.synthetic.json'))));
+  if (synthetic.meta.dataKind !== 'synthetic' || synthetic.meta.dataMode !== 'sample' || synthetic.items.length !== 3 ||
+    [synthetic.meta.recordedAt, synthetic.meta.syncedAt, synthetic.meta.upstreamTotalCount, synthetic.meta.originalResponseSha256].some(value => value !== null) ||
+    !synthetic.items.every(item => item.name.startsWith('가상 ') && !item.phone && item.referenceDate === null)) throw new Error('가상 전이 자료에 기관 수집 근거가 섞였습니다.');
+  const pkg = JSON.parse(await readFile(path.join(folder, 'package.json')));
+  if (pkg.scripts['prepare-transfer'] !== 'node scripts/prepare-transfer.mjs') throw new Error('가상 복사본 준비 명령이 없습니다.');
+  for (const file of ['lib/store.mjs', 'lib/provenance.mjs', 'app/data-source.js', 'scripts/prepare-transfer.mjs', 'data/records.synthetic.json', 'test/transfer.test.mjs']) {
+    if (!(await readFile(path.join(folder, file))).equals(await readFile(path.join('examples/step-02-records', file)))) throw new Error(`독립 단계의 공통 자료 계약이 다릅니다: ${file}`);
+  }
+}
+await access('docs/day1/04-data-card.md');
+console.log('가상 전이 복사본·기관 메타 분리·독립 ZIP 계약도 확인했습니다.');

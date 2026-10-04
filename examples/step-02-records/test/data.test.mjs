@@ -5,9 +5,9 @@ import os from 'node:os';
 import path from 'node:path';
 import { readStore, saveStore } from '../lib/store.mjs';
 import { filterRecords, displayValue } from '../lib/filter.mjs';
-const seed = JSON.parse(await readFile(new URL('../data/records.json', import.meta.url)));
+const seed = JSON.parse(await readFile(new URL('../data/records.seed.json', import.meta.url)));
 test('파일 자료를 읽고 이름 검색 3→1→0→3', async () => {
-  const data = await readStore(new URL('../data/records.json', import.meta.url));
+  const data = await readStore(new URL('../data/records.seed.json', import.meta.url));
   assert.equal(filterRecords(data.items).length, 3);
   assert.equal(filterRecords(data.items, { query: ' 사월 ' }).length, 1);
   assert.equal(filterRecords(data.items, { query: '없는도서관' }).length, 0);
