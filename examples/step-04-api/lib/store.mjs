@@ -1,10 +1,13 @@
 import { readFile, writeFile, rename, unlink } from 'node:fs/promises';
 import { randomUUID } from 'node:crypto';
 import path from 'node:path';
+import { dataKind, SYNTHETIC_SOURCE } from './provenance.mjs';
 
 export const DEFAULT_FILE = path.join(process.cwd(), 'data', 'records.json');
 export function validateStore(value) {
   if (!value || !value.meta || !['sample', 'live'].includes(value.meta.dataMode) || !Array.isArray(value.items) || value.items.length > 10000) throw new Error('저장 파일의 자료 형식을 확인하세요.');
+  const kind = dataKind(value.meta);
+  if (!['recorded', 'synthetic', 'live'].includes(kind) || (kind === 'live') !== (value.meta.dataMode === 'live')) throw new Error('자료 종류와 읽기 모드가 맞지 않습니다.');
   const seen = new Set();
   const items = value.items.map(item => {
     if (!item || typeof item !== 'object') throw new Error('목록 항목 형식을 확인하세요.');
@@ -27,7 +30,8 @@ export function validateStore(value) {
   if (recordedAt !== null && (typeof recordedAt !== 'string' || !Number.isFinite(Date.parse(recordedAt)))) throw new Error('원본 수집 일시 형식을 확인하세요.');
   if (upstreamTotalCount !== null && (!Number.isInteger(upstreamTotalCount) || upstreamTotalCount < items.length)) throw new Error('원본 전체 건수를 확인하세요.');
   if (originalResponseSha256 !== null && (typeof originalResponseSha256 !== 'string' || !/^[a-f0-9]{64}$/.test(originalResponseSha256))) throw new Error('원본 응답 지문 형식을 확인하세요.');
-  return { meta: { dataMode: value.meta.dataMode, source: value.meta.source, syncedAt: value.meta.syncedAt, scope: value.meta.scope, totalCount: items.length, recordedAt, upstreamTotalCount, originalResponseSha256 }, items };
+  if (kind === 'synthetic' && (value.meta.source !== SYNTHETIC_SOURCE || value.meta.syncedAt !== null || recordedAt !== null || upstreamTotalCount !== null || originalResponseSha256 !== null)) throw new Error('가상 자료에는 실제 기관 출처·수집 시각·원본 건수·응답 지문을 넣지 마세요.');
+  return { meta: { dataKind: kind, dataMode: value.meta.dataMode, source: value.meta.source, syncedAt: value.meta.syncedAt, scope: value.meta.scope, totalCount: items.length, recordedAt, upstreamTotalCount, originalResponseSha256 }, items };
 }
 export async function readStore(file = DEFAULT_FILE) {
   const raw = await readFile(file, 'utf8');
