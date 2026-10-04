@@ -1,38 +1,41 @@
 {
   "meta": {
     "dataMode": "sample",
-    "source": "수업용 가상 도서관 자료 · 실제 기관 정보가 아님",
+    "source": "공공데이터포털 전국도서관표준데이터 · 실제 응답에서 선정한 저장 예제 (현재 실행은 오프라인)",
     "syncedAt": null,
-    "scope": "가상 도서관 3건 (대구 수성구·대구 중구)",
-    "totalCount": 3
+    "recordedAt": "2026-10-04T10:17:37Z",
+    "scope": "대구 수성구 2곳·중구 1곳을 선정한 교육용 저장 예제",
+    "totalCount": 3,
+    "upstreamTotalCount": 242,
+    "originalResponseSha256": "52ea03a89a47ea04caa9e8996dd4de48b6f5074810d834361135cbd4f825b0c4"
   },
   "items": [
     {
-      "id": "library-a",
-      "name": "도서관 A",
+      "id": "92e2378fffc407467bf7",
+      "name": "수성구립용학도서관",
       "region": "대구 수성구",
       "type": "공공도서관",
-      "address": "가상 주소 A",
-      "phone": "가상 전화 A",
-      "referenceDate": null
+      "address": "대구광역시 수성구 지범로41길 36(범물동)",
+      "phone": "053-668-1700",
+      "referenceDate": "2026-03-01"
     },
     {
-      "id": "library-b",
-      "name": "도서관 B",
+      "id": "8bb551886c921d5df92d",
+      "name": "수성구립사월책문화센터도서관",
       "region": "대구 수성구",
       "type": "작은도서관",
-      "address": "",
-      "phone": "가상 전화 B",
-      "referenceDate": null
+      "address": "대구광역시 수성구 성동로 70(청운신협행복센터 2층)",
+      "phone": "053-668-1940",
+      "referenceDate": "2026-03-01"
     },
     {
-      "id": "library-c",
-      "name": "도서관 C",
+      "id": "a872d20ddf1fda645e0e",
+      "name": "2.28민주운동 기념회관",
       "region": "대구 중구",
       "type": "공공도서관",
-      "address": "가상 주소 C",
-      "phone": "",
-      "referenceDate": null
+      "address": "대구광역시 중구 2·28길 9",
+      "phone": "053-257-2280",
+      "referenceDate": "2025-12-29"
     }
   ]
 }

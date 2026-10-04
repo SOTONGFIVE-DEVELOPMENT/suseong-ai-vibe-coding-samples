@@ -14,7 +14,9 @@ function field(item, camel, official, required = false) {
   return value.trim();
 }
 export function normalizePage(payload) {
-  const response = payload?.response;
+  // The authenticated API may return header/body directly; older saved responses
+  // may wrap the same explicit shape in response. Do not search arbitrary arrays.
+  const response = payload?.response ?? payload;
   if (!response || String(response.header?.resultCode) !== '00') throw new Error(MESSAGE);
   const body = response.body;
   const rawTotal = body?.totalCount;
@@ -63,6 +65,7 @@ async function readBoundedJson(response) {
 export async function fetchLive({ serviceKey, fetchFn = fetch, deadlineMs = 25000 } = {}) {
   if (!serviceKey || typeof serviceKey !== 'string' || serviceKey.length > 1000) throw new Error(MESSAGE);
   const all = [];
+  const seenPages = new Set();
   let expectedTotal = null;
   const deadline = AbortSignal.timeout(deadlineMs);
   // 명세의 첫 페이지는 0입니다. 전체 페이지 검증 후에만 저장합니다.
@@ -76,9 +79,23 @@ export async function fetchLive({ serviceKey, fetchFn = fetch, deadlineMs = 2500
     } catch { throw new Error(MESSAGE); }
     if (expectedTotal === null) expectedTotal = page.totalCount;
     if (expectedTotal !== page.totalCount || (page.items.length === 0 && all.length < expectedTotal)) throw new Error(MESSAGE);
+    const pageFingerprint = JSON.stringify(page.items);
+    if (page.items.length && seenPages.has(pageFingerprint)) throw new Error(MESSAGE);
+    seenPages.add(pageFingerprint);
     all.push(...page.items);
-    if (all.length > expectedTotal || new Set(all.map(i => i.id)).size !== all.length) throw new Error(MESSAGE);
-    if (all.length === expectedTotal) return { items: all, meta: { dataMode: 'live', source: '공공데이터포털 전국도서관표준데이터 (15013109)', syncedAt: new Date().toISOString(), scope: '대구광역시 조건으로 조회한 API 응답 전체 페이지', totalCount: all.length } };
+    if (all.length > expectedTotal) throw new Error(MESSAGE);
+    if (all.length === expectedTotal) {
+      // Check the advertised raw count before removing exact duplicate records.
+      // A shared ID with different normalized fields is an unsafe collision.
+      const unique = new Map();
+      for (const item of all) {
+        const previous = unique.get(item.id);
+        if (previous && JSON.stringify(previous) !== JSON.stringify(item)) throw new Error(MESSAGE);
+        unique.set(item.id, item);
+      }
+      const items = [...unique.values()];
+      return { items, meta: { dataMode: 'live', source: '공공데이터포털 전국도서관표준데이터 (15013109)', syncedAt: new Date().toISOString(), scope: '대구광역시 조건으로 조회한 API 응답 전체 페이지 · 동일 자료 중복 제거', totalCount: items.length, upstreamTotalCount: expectedTotal } };
+    }
   }
   throw new Error(MESSAGE);
 }
@@ -90,7 +107,17 @@ export async function importRecords({ mode = process.env.DATA_MODE ?? 'sample', 
     const payload = JSON.parse(await readFile(/* turbopackIgnore: true */ fixtureFile, 'utf8'));
     const page = normalizePage(payload);
     if (page.items.length !== page.totalCount) throw new Error(MESSAGE);
-    data = { items: page.items, meta: { dataMode: 'sample', source: '교육용 API 응답 파일 · 실제 공공데이터 호출이 아님', syncedAt: new Date().toISOString(), scope: '가상 도서관 3건 (대구 수성구·대구 중구)', totalCount: page.items.length } };
+    const recording = payload.recording;
+    if (!recording || recording.kind !== 'recorded-subset' || recording.sourceUrl !== 'https://www.data.go.kr/data/15013109/standard.do' ||
+      typeof recording.recordedAt !== 'string' || !Number.isFinite(Date.parse(recording.recordedAt)) ||
+      !Number.isInteger(recording.upstreamTotalCount) || recording.upstreamTotalCount < page.totalCount ||
+      !/^[a-f0-9]{64}$/.test(recording.originalResponseSha256 ?? '')) throw new Error(MESSAGE);
+    data = { items: page.items, meta: {
+      dataMode: 'sample', source: '공공데이터포털 전국도서관표준데이터 · 실제 응답에서 선정한 저장 예제 (현재 실행은 오프라인)',
+      syncedAt: new Date().toISOString(), recordedAt: recording.recordedAt,
+      scope: '대구 수성구 2곳·중구 1곳을 선정한 교육용 저장 예제', totalCount: page.items.length,
+      upstreamTotalCount: recording.upstreamTotalCount, originalResponseSha256: recording.originalResponseSha256,
+    } };
   } else {
     if (exercise !== 'success') throw new Error(MESSAGE);
     data = await fetchLive({ serviceKey, fetchFn });

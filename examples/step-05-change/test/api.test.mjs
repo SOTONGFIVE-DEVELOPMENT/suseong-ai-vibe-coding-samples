@@ -9,7 +9,7 @@ import { allowLocalWrite } from '../lib/local-request.mjs';
 const fixtureFile = new URL('../data/sample-api-response.json', import.meta.url);
 const payload = JSON.parse(await readFile(fixtureFile));
 function response(body) { return new Response(JSON.stringify(body), { headers: { 'Content-Type': 'application/json' } }); }
-test('가상 API 자료를 명시적인 sample 출처로 저장하며 오류는 정상 파일 보존', async () => {
+test('실제 저장 응답을 sample로 재생하고 수집 근거·오류 보존을 유지', async () => {
   const dir = await mkdtemp(path.join(os.tmpdir(), 'suseong-import-'));
   const file = path.join(dir, 'records.json');
   try {
@@ -17,8 +17,13 @@ test('가상 API 자료를 명시적인 sample 출처로 저장하며 오류는 
     const stored = await readStore(file);
     assert.equal(stored.items.length, 3);
     assert.equal(stored.meta.dataMode, 'sample');
-    assert.match(stored.meta.source, /교육용 API 응답/);
+    assert.match(stored.meta.source, /실제 응답.*저장 예제/);
     assert.ok(stored.meta.syncedAt);
+    assert.equal(stored.meta.recordedAt, payload.recording.recordedAt);
+    assert.notEqual(stored.meta.syncedAt, stored.meta.recordedAt);
+    assert.equal(stored.meta.upstreamTotalCount, 242);
+    assert.equal(stored.meta.originalResponseSha256, payload.recording.originalResponseSha256);
+    assert.equal(stored.items[1].address, payload.response.body.items[1].rdnmadr);
     const before = await readFile(file, 'utf8');
     for (const exercise of ['timeout', 'malformed', 'auth']) {
       await assert.rejects(importRecords({ mode: 'sample', exercise, fixtureFile, file }));
@@ -26,6 +31,10 @@ test('가상 API 자료를 명시적인 sample 출처로 저장하며 오류는 
     }
     const badFile = path.join(dir, 'bad.json');
     await import('node:fs/promises').then(fs => fs.writeFile(badFile, JSON.stringify({ response: { header: { resultCode: '30' } } })));
+    await assert.rejects(importRecords({ mode: 'sample', fixtureFile: badFile, file }));
+    assert.equal(await readFile(file, 'utf8'), before);
+    const noRecording = structuredClone(payload); delete noRecording.recording;
+    await import('node:fs/promises').then(fs => fs.writeFile(badFile, JSON.stringify(noRecording)));
     await assert.rejects(importRecords({ mode: 'sample', fixtureFile: badFile, file }));
     assert.equal(await readFile(file, 'utf8'), before);
   } finally { await rm(dir, { recursive: true, force: true }); }
@@ -50,7 +59,7 @@ test('실전 어댑터는 고정 공식 endpoint·페이지0부터 전체 페이
     assert.equal(options.redirect, 'error');
     const page = Number(url.searchParams.get('pageNo'));
     const part = structuredClone(payload); part.response.body.items = payload.response.body.items.slice(page, page + 1);
-    return response(part);
+    return response(part.response);
   } });
   assert.equal(calls.length, 3);
   assert.equal(`${calls[0].origin}${calls[0].pathname}`, OFFICIAL_ENDPOINT);
@@ -77,4 +86,18 @@ test('브라우저의 동일 local origin만 쓰기 허용', () => {
   assert.equal(allowLocalWrite(make('https://attacker.example')), false);
   assert.equal(allowLocalWrite(make('http://127.0.0.1:3000', 'attacker.example')), false);
   assert.equal(allowLocalWrite(make('http://127.0.0.1:3000', '127.0.0.1:3000', 'cross-site')), false);
+});
+
+test('공식 direct header/body와 저장 response wrapper를 동일하게 정규화', () => {
+  assert.deepEqual(normalizePage(payload.response), normalizePage(payload));
+});
+test('원본 전체 건수 검증 뒤 정확히 같은 항목만 제거하고 ID 충돌은 거부', async () => {
+  const raw = structuredClone(payload.response);
+  raw.body.items.push(structuredClone(raw.body.items[0])); raw.body.totalCount = 4;
+  const data = await fetchLive({ serviceKey: 'test-only', fetchFn: async () => response(raw) });
+  assert.equal(data.items.length, 3);
+  assert.equal(data.meta.totalCount, 3);
+  assert.equal(data.meta.upstreamTotalCount, 4);
+  raw.body.items[3].phoneNumber = 'conflicting-public-field';
+  await assert.rejects(fetchLive({ serviceKey: 'test-only', fetchFn: async () => response(raw) }));
 });
