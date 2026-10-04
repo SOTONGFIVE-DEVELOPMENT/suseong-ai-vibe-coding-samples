@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="ko" data-theme="library">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f6f5ef" />
+    <meta name="description" content="도서관 이름, 지역, 유형으로 저장된 공공도서관 자료를 찾아보세요. 수성 AI 바이브 코딩 강의의 최종 산출물입니다." />
+    <title>우리 동네 도서관 · 수성 AI 바이브 코딩</title>
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#search-name">도서관 검색으로 바로 가기</a>
+    <header class="site-header">
+      <div class="page-width header-content">
+        <a class="wordmark" href="/" aria-label="우리 동네 도서관 홈">
+          <svg class="brand-icon" width="30" height="32" viewBox="0 0 30 32" fill="none" aria-hidden="true">
+            <path d="M3 5.5c4.8-2 8.5-1.2 12 1.5v21c-3.5-2.7-7.2-3.5-12-1.5V5.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M27 5.5c-4.8-2-8.5-1.2-12 1.5v21c3.5-2.7 7.2-3.5 12-1.5V5.5Z" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M7 10.5c1.7-.3 3.1 0 4.5.8M7 15c1.7-.3 3.1 0 4.5.8M19 11.3c1.4-.8 2.8-1.1 4.5-.8M19 15.8c1.4-.8 2.8-1.1 4.5-.8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+          </svg>
+          <span>우리 동네 도서관</span>
+        </a>
+        <div class="header-note"><span class="tiny-dot" aria-hidden="true"></span> 수성 AI 바이브 코딩</div>
+      </div>
+    </header>
+
+    <main id="main" class="page-width">
+      <section class="hero-section" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span aria-hidden="true">01 /</span> LIBRARY FINDER</p>
+          <h1 id="hero-title">책과 만나는 곳,<br />가까이서 찾아보세요.</h1>
+          <p class="hero-description">이름과 지역으로 찾는 우리 동네 도서관.<br />책 한 권과 함께할 공간을 살펴보세요.</p>
+          <p class="course-label"><span class="short-rule" aria-hidden="true"></span>강의에서 만든 공공도서관 조회 앱</p>
+        </div>
+        <div class="hero-art" aria-hidden="true">
+          <svg viewBox="0 0 410 285" fill="none">
+            <path d="M171 232V99a77 77 0 0 1 154 0v133" fill="#e6e9dd" />
+            <path d="M182 231V100a66 66 0 0 1 132 0v131" stroke="#cad3c5" stroke-width="1" />
+            <circle cx="247" cy="90" r="24" fill="#cf936c" />
+            <path d="M145 124h204M161 232V86M334 232V86" stroke="#f6f5ef" stroke-width="4" />
+            <path d="M225 50v183" stroke="#f6f5ef" stroke-width="4" />
+            <path d="M104 236h244" stroke="#485651" stroke-width="1.4" stroke-linecap="round" />
+            <ellipse cx="201" cy="244" rx="139" ry="10" fill="#dee0d4" />
+            <path d="M123 165h126v65H123z" fill="#355a53" />
+            <path d="M129 172h115v49H129z" fill="#f2eddf" />
+            <path d="M130 185h113M130 201h113M139 174v45M158 174v45M180 174v45M204 174v45M226 174v45" stroke="#d8d2c2" stroke-width="1.5" />
+            <path d="M112 231h146v7H112z" fill="#355a53" />
+            <path d="M93 151h19v80H93z" fill="#c68f6c" />
+            <path d="M95 156h15M95 163h15M95 220h15" stroke="#eed9c4" stroke-width="1.4" />
+            <path d="m65 161 15-5 25 75-15 5-25-75Z" fill="#7e8d77" />
+            <path d="m69 166 13-4M87 223l13-4" stroke="#dce2d2" stroke-width="1.3" />
+            <path d="M107 145h19v86h-19z" fill="#d7cdb8" />
+            <path d="M112 152v72M121 152v72" stroke="#9a937f" stroke-width="1.1" />
+            <path d="M143 157c19-24 43-29 60-24 22-15 43-17 65-8l-5 38c-24-4-45-2-66 8-17-8-35-6-54-4v-10Z" fill="#f9f5e9" stroke="#707f6d" stroke-width="1.2" />
+            <path d="m197 169 6-36M150 156c17-15 33-17 45-16M211 138c17-7 33-9 48-7M209 145c18-7 31-8 49-6M207 153c17-7 29-8 48-5" stroke="#c4c7b5" stroke-width="1.2" stroke-linecap="round" />
+            <path d="M284 228h31l5-35h-42l6 35Z" fill="#c7ad93" />
+            <path d="M299 193v-38M298 175c-17 0-25-10-28-23 16 1 27 9 28 23ZM299 166c15-2 24-12 24-26-16 5-22 13-24 26ZM299 155c-10-8-12-21-5-33 10 11 13 22 5 33Z" stroke="#55725a" stroke-width="1.5" fill="#8e9e7c" stroke-linejoin="round" />
+            <path d="M279 193h39" stroke="#b2947b" stroke-width="2" />
+            <path d="M88 82h16M96 74v16M344 155h12M350 149v12" stroke="#a6b09d" stroke-width="1.4" stroke-linecap="round" />
+            <circle cx="120" cy="104" r="3" fill="#c68f6c" />
+            <circle cx="347" cy="107" r="2" fill="#c68f6c" />
+          </svg>
+          <span class="art-caption">A PLACE FOR YOUR NEXT CHAPTER</span>
+        </div>
+      </section>
+
+      <section class="search-section" aria-labelledby="search-title">
+        <div class="section-kicker"><span id="search-title">도서관 찾기</span><span class="section-kicker-note">조금 더 가까운 책의 공간</span></div>
+        <form id="search-form" class="search-form" role="search" aria-label="도서관 검색">
+          <div class="search-grid">
+            <div class="field field-name">
+              <label for="search-name">도서관 이름</label>
+              <div class="input search-input">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5" stroke="currentColor" stroke-width="1.5"/><path d="m15.5 15.5 4.5 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+                <input id="search-name" name="name" type="search" placeholder="도서관 이름을 입력하세요" maxlength="100" autocomplete="off" />
+              </div>
+            </div>
+            <div class="field">
+              <label for="search-region">지역</label>
+              <select id="search-region" name="region" class="select" aria-label="지역 선택"><option value="">전체 지역</option></select>
+            </div>
+            <div class="field">
+              <label for="search-type">도서관 유형</label>
+              <select id="search-type" name="type" class="select" aria-label="도서관 유형 선택"><option value="">전체 유형</option></select>
+            </div>
+            <button id="search-button" type="submit" class="btn btn-primary search-button"><span>도서관 찾기</span><svg width="17" height="17" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4 10h12M11 5l5 5-5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
+          </div>
+          <div class="search-bottom"><p>입력한 조건을 모두 만족하는 도서관을 찾습니다.</p><button id="reset-button" type="button" class="btn btn-ghost reset-button"><svg width="15" height="15" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4.2 7.1A6.2 6.2 0 1 1 4 12M3 3.5V8h4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>조건 초기화</button></div>
+        </form>
+      </section>
+
+      <div id="data-notice" class="alert data-notice" role="status">
+        <span id="data-mode" class="badge badge-outline">연결 확인 중</span>
+        <p id="data-notice-text">자료의 연결 상태를 확인하고 있습니다.</p>
+      </div>
+
+      <section id="results" class="results-section" aria-labelledby="results-title" aria-busy="true">
+        <div class="results-header">
+          <div><p class="eyebrow result-eyebrow">YOUR LIBRARY COLLECTION</p><div class="results-title-line"><h2 id="results-title">도서관 목록</h2><span id="result-count" class="badge result-count">—</span></div></div>
+          <button id="refresh-button" class="btn refresh-button" type="button" aria-label="현재 조건으로 저장된 자료 다시 조회"><svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true"><path d="M4.2 7.1A6.2 6.2 0 1 1 4 12M3 3.5V8h4.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/></svg>다시 조회</button>
+        </div>
+        <div class="result-context"><p id="query-summary">전체 도서관</p><p id="count-summary">저장된 자료를 조회하고 있습니다.</p></div>
+
+        <div id="error-message" class="alert alert-error alert-soft error-message" role="alert" hidden>
+          <svg width="21" height="21" viewBox="0 0 24 24" fill="none" aria-hidden="true"><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.5"/><path d="M12 7v6M12 16v.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
+          <div><strong>자료를 불러오지 못했습니다.</strong><p id="error-detail">잠시 후 다시 조회해 주세요.</p></div>
+        </div>
+        <div id="loading-state" class="result-state" role="status"><span class="loading loading-spinner loading-md" aria-hidden="true"></span><h3>도서관 자료를 찾고 있어요</h3><p>잠시만 기다려 주세요.</p></div>
+        <div id="empty-state" class="result-state" hidden>
+          <svg class="empty-icon" width="50" height="50" viewBox="0 0 50 50" fill="none" aria-hidden="true"><path d="M8 11c6-2 11-1 17 3v27c-6-4-11-5-17-3V11ZM42 11c-6-2-11-1-17 3v27c6-4 11-5 17-3V11Z" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round"/><path d="M14 20h5M14 26h5M31 20h5M31 26h5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg>
+          <h3>조건에 맞는 도서관이 없어요</h3><p>이름을 짧게 입력하거나 지역과 유형을 바꿔 보세요.</p><button id="empty-reset-button" type="button" class="btn">전체 도서관 보기</button>
+        </div>
+        <div id="unavailable-state" class="result-state" hidden><h3>지금은 자료를 확인할 수 없어요</h3><p>위의 ‘다시 조회’ 버튼으로 한 번 더 시도해 주세요.</p></div>
+
+        <div id="table-wrapper" class="table-wrapper overflow-x-auto" hidden>
+          <table class="table library-table">
+            <caption class="sr-only">검색 조건에 맞는 도서관의 이름, 지역, 주소, 연락처와 자료 기준일</caption>
+            <thead><tr><th scope="col">도서관 이름 / 유형</th><th scope="col">지역</th><th scope="col">주소</th><th scope="col">연락처</th><th scope="col">자료 기준일</th></tr></thead>
+            <tbody id="library-rows"></tbody>
+          </table>
+        </div>
+        <p id="result-announcement" class="sr-only" role="status" aria-live="polite" aria-atomic="true"></p>
+      </section>
+
+      <section class="data-details" aria-labelledby="data-details-title">
+        <div class="data-details-heading"><h2 id="data-details-title">자료 안내</h2><p>조회는 저장된 자료 기준입니다.</p></div>
+        <div class="stats data-stats">
+          <div class="stat"><div class="stat-title">자료 출처</div><div id="source-value" class="stat-value metadata-value">확인 중</div><div id="connection-value" class="stat-desc">API 연결 상태 확인 중</div></div>
+          <div class="stat"><div class="stat-title">저장 범위</div><div id="scope-value" class="stat-value metadata-value">확인 중</div><div id="upstream-value" class="stat-desc">저장된 자료를 기준으로 검색합니다.</div></div>
+          <div class="stat"><div class="stat-title">최근 수집 성공</div><div id="sync-value" class="stat-value metadata-value">확인 중</div><div class="stat-desc">각 도서관의 자료 기준일도 확인해 주세요.</div></div>
+        </div>
+      </section>
+
+      <details class="project-details"><summary>강의 최종 산출물에 대해</summary><div><p>공공데이터를 서버에 저장하고, 이름·지역·유형을 조합해 조회하는 웹 앱입니다. 검색 조건은 주소에 저장되어 링크로 다시 열 수 있습니다.</p><p>‘실제 데이터 예제’는 공공데이터 API 응답에서 선정해 저장한 도서관 3곳입니다. API 키 없이 조회할 수 있으며, 서버에서 새로 수집한 자료와 구분해 표시합니다. 도서관의 운영 여부와 최신 정보는 해당 기관에서 확인해 주세요.</p></div></details>
+    </main>
+
+    <footer class="site-footer page-width"><div><span class="footer-brand">우리 동네 도서관</span><p>수성 AI 바이브 코딩 · 강의 최종 산출물</p></div><nav aria-label="관련 링크"><a href="https://suseong-ai-vibe-coding.pages.dev/" target="_blank" rel="noopener noreferrer">강의 교안 <span aria-hidden="true">↗</span></a><a href="https://www.data.go.kr/data/15013109/standard.do" target="_blank" rel="noopener noreferrer">공공데이터 API <span aria-hidden="true">↗</span></a></nav></footer>
+    <noscript><p class="noscript-message">도서관 조회를 사용하려면 브라우저에서 JavaScript를 켜 주세요.</p></noscript>
+  </body>
+</html>

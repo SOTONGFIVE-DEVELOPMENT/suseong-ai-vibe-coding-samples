@@ -1,9 +1,9 @@
 import { readFile, access } from 'node:fs/promises';
 import path from 'node:path';
 const course = JSON.parse(await readFile('course.json', 'utf8'));
-if (course.stages.length !== 6) throw new Error('6개 단계가 필요합니다.');
+if (course.stages.length !== 7) throw new Error('로컬 최종 앱까지 7개 단계가 필요합니다.');
 for (const stage of course.stages) {
-  for (const file of ['package.json','package-lock.json','README.md','PROMPTS.md','CHECKLIST.md','LICENSE','.gitignore','.env.example','app/page.js','data/records.json']) await access(path.join(stage.folder, file));
+  for (const file of ['package.json','package-lock.json','README.md','PROMPTS.md','CHECKLIST.md','LICENSE','.gitignore','.env.example',stage.id === 'step-06' ? 'app/route.js' : 'app/page.js','data/records.json']) await access(path.join(stage.folder, file));
   const ignore=await readFile(path.join(stage.folder,'.gitignore'),'utf8');
   for(const rule of ['node_modules/','.next/','.env*','!.env.example'])if(!ignore.split('\n').includes(rule))throw new Error(`독립 프로젝트의 제외 규칙이 없습니다: ${stage.id} ${rule}`);
   const data = JSON.parse(await readFile(path.join(stage.folder, 'data/records.json')));
@@ -17,7 +17,7 @@ for (const stage of course.stages) {
   if (pkg.scripts.dev !== 'next dev --hostname 127.0.0.1') throw new Error('실행 주소를 확인하세요.');
   if (pkg.engines.node !== '>=22 <23') throw new Error('Node22 기준을 확인하세요.');
 }
-for (const folder of ['examples/step-04-api','examples/step-05-change']) {
+for (const folder of ['examples/step-04-api','examples/step-05-change','examples/step-06-final']) {
   for (const file of ['docs/api-spec.md','api-response.sample.json']) {
     const canonical = await readFile(file);
     const standalone = await readFile(path.join(folder, file));
@@ -35,11 +35,11 @@ for (const stage of course.stages) {
     if (item.name !== raw.lbrryNm || item.address !== raw.rdnmadr || item.phone !== raw.phoneNumber || item.referenceDate !== raw.referenceDate) throw new Error('원본 공개 필드가 변경됐습니다.');
   }
 }
-for (const folder of ['examples/step-04-api','examples/step-05-change']) {
+for (const folder of ['examples/step-04-api','examples/step-05-change','examples/step-06-final']) {
   if (!fixture.equals(await readFile(path.join(folder, 'data/sample-api-response.json')))) throw new Error('실행 응답 파일이 저장 응답 정본과 다릅니다.');
 }
-console.log('6단계 manifest·독립 실행 파일·실제 저장 자료·수집 근거 계약을 확인했습니다.');
-for (const stage of course.stages.filter(stage => Number(stage.id.slice(-2)) >= 2)) {
+console.log('7단계 manifest·독립 실행 파일·실제 저장 자료·수집 근거 계약을 확인했습니다.');
+for (const stage of course.stages.filter(stage => Number(stage.id.slice(-2)) >= 2 && stage.id !== 'step-06')) {
   const folder = stage.folder;
   for (const file of ['data/records.synthetic.json', 'scripts/prepare-transfer.mjs', 'lib/provenance.mjs', 'app/data-source.js', 'test/transfer.test.mjs']) await access(path.join(folder, file));
   const { validateStore } = await import(`../${folder}/lib/store.mjs`);
@@ -55,3 +55,8 @@ for (const stage of course.stages.filter(stage => Number(stage.id.slice(-2)) >= 
 }
 await access('docs/day1/04-data-card.md');
 console.log('가상 전이 복사본·기관 메타 분리·독립 ZIP 계약도 확인했습니다.');
+
+for (const file of ['lib/store.mjs', 'lib/provenance.mjs', 'app/data-source.js']) {
+  if (!(await readFile(path.join('examples/step-06-final', file))).equals(await readFile(path.join('examples/step-02-records', file)))) throw new Error(`최종 앱의 공통 저장·출처 계약이 다릅니다: ${file}`);
+}
+console.log('로컬 최종 화면의 공통 저장·출처 계약을 확인했습니다.');
